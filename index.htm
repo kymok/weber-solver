@@ -17,16 +17,20 @@
         </ul>
       </div>
       <div id="toolbar">
-        <div class="flexitem">
+        <div class="flexitem flex-fixed">
           <span>Weight Function: </span>
           <select id="weightFunctionSelector" onchange="computeCenter()">
-            <option value="none">none (minimize sum distance)</option>
-            <option value="distance">distance (minimize sum squared distance)</option>
+            <option value="none">none</option>
+            <option value="distance">distance</option>
           </select>
         </div>
         <div class="flexitem"></div>
         <div class="flexitem flex-fixed">
-          <input id="removeAll" type="button" onclick=deleteMarkers() value="Remove All Markers">
+          <input id="sendToGoogleMaps" type="button" onclick="sendToGoogleMaps()" value="Send to Google Maps" disabled="true">
+        </div>
+        <div class="flexitem"></div>
+        <div class="flexitem flex-fixed">
+          <input id="removeAll" type="button" onclick="deleteMarkers()" value="Remove All Markers">
         </div>
       </div>
     </div>
@@ -53,7 +57,7 @@
     }
     let oReq = new XMLHttpRequest();
     oReq.addEventListener('load', reqListener);
-    oReq.open('GET', 'credentials/github-demo-key.txt');
+    oReq.open('GET', 'credentials/key.txt');
     oReq.send();
   </script>
 </body>

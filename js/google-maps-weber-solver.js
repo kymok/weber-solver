@@ -3,9 +3,10 @@ var map;
 var markers = [];
 var centerMarker;
 var centerMarkerIcon;
+var sendButton = document.getElementById('sendToGoogleMaps');
+var initialLocation = {lat: 35.681167, lng: 139.767052};
 
 function initMap() {
-  var initialLocation = {lat: 35.681167, lng: 139.767052};
   map = new google.maps.Map(document.getElementById('map'), {
     zoom: 13,
     center: initialLocation,
@@ -85,6 +86,11 @@ function initCenterMarker(location) {
 }
 function hideCenterMarker() {
   centerMarker.setMap(null);
+  sendButton.disabled = true;
+}
+function showCenterMarker() {
+  centerMarker.setMap(map);
+  sendButton.disabled = false;
 }
 
 /* Solver */
@@ -101,6 +107,15 @@ function loadWeightFunction() {
   else {
     weightFunction = new Function('d', 'return 1');
   }
+}
+
+function sendToGoogleMaps() {
+  if (centerMarker.map == null) {
+    return;
+  }
+  let lat = centerMarker.getPosition().lat();
+  let lng = centerMarker.getPosition().lng();
+  window.open('https://maps.google.com/maps?q=' + lat + ',' + lng);
 }
 
 function computeCenter() {
@@ -165,8 +180,9 @@ function computeCenter() {
       break;
     }
   }
+
   console.log(iteration);
-  centerMarker.setMap(map);
+  showCenterMarker();
 }
 
 
