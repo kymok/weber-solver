@@ -1,5 +1,8 @@
 # Simple Weber Problem Solver
 
+## Demo
+
+https://kymok.github.io/weber-solver/
 
 ## Weber Problem
 
