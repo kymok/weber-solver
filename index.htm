@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" type="text/css" href="css/style.css">
+</head>
+<body>
+  <div id="container">
+    <div id="controller" class="flexitem flex-fixed">
+      <div id="usage">
+        <h1>Weber Problem Solver</h1>
+        <h2>Usage</h2>
+        <ul>
+          <li>Click on the map below to place markers.</li>
+          <li>Drag an existing marker to adjust its location.</li>
+          <li>Click on existing marker to delete the marker.</li>
+        </ul>
+      </div>
+      <div id="toolbar">
+        <div class="flexitem">
+          <span>Weight Function: </span>
+          <select id="weightFunctionSelector" onchange="computeCenter()">
+            <option value="none">none (minimize sum distance)</option>
+            <option value="distance">distance (minimize sum squared distance)</option>
+          </select>
+        </div>
+        <div class="flexitem"></div>
+        <div class="flexitem flex-fixed">
+          <input id="removeAll" type="button" onclick=deleteMarkers() value="Remove All Markers">
+        </div>
+      </div>
+    </div>
+    <div id="map-container" class="flexitem">
+      <div id="map"></div>
+    </div>
+  </div>
+  <script src='js/google-maps-weber-solver.js'></script>
+  <script>
+    let key = "";
+    function reqListener () {
+      if (this.readyState !==4 || this.status !== 200) {
+        return null; // When Key is not loaded, do nothing
+      }
+      key = this.responseText;
+      attachScripts();
+    }
+    function attachScripts() {
+      // Insert Google Maps Script
+      let googleMapsScriptURI = 'https://maps.googleapis.com/maps/api/js?key=' + key + '&libraries=geometry&callback=initMap'
+      let googleMapsScript = document.createElement('script');
+      googleMapsScript.src = googleMapsScriptURI;
+      document.body.appendChild(googleMapsScript);
+    }
+    let oReq = new XMLHttpRequest();
+    oReq.addEventListener('load', reqListener);
+    oReq.open('GET', 'credentials/github-demo-key.txt');
+    oReq.send();
+  </script>
+</body>
+</html>
