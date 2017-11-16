@@ -40,7 +40,8 @@
   </div>
   <script src='js/google-maps-weber-solver.js'></script>
   <script>
-    let key = "";
+    let keyName = '';
+    let key = '';
     function reqListener () {
       if (this.readyState !==4 || this.status !== 200) {
         return null; // When Key is not loaded, do nothing
@@ -55,9 +56,18 @@
       googleMapsScript.src = googleMapsScriptURI;
       document.body.appendChild(googleMapsScript);
     }
+    function checkLocalhost() {
+      if (location.hostname === "localhost" || location.hostname === "127.0.0.1") {
+        keyName = 'key.txt';
+      }
+      else {
+        keyName = 'github-demo-key.txt'
+      }
+    }
+    checkLocalhost();
     let oReq = new XMLHttpRequest();
     oReq.addEventListener('load', reqListener);
-    oReq.open('GET', 'credentials/github-demo-key.txt');
+    oReq.open('GET', 'credentials/' + keyName);
     oReq.send();
   </script>
 </body>
