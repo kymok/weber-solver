@@ -1,6 +1,5 @@
 # API Keys
-/credentials/*
-!/credentials/github-demo-key.txt
+/credentials/
 
 # Emacs Backup Files
 *~
